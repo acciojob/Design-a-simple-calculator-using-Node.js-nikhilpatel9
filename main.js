@@ -1,31 +1,42 @@
-// Calculator program in Node.js
+const readline = require('readline');
 
-// Function to perform addition
-function add(num1, num2) {
-  // TODO: Perform addition operation here
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+function add(a, b) { return a + b; }
+function subtract(a, b) { return a - b; }
+function multiply(a, b) { return a * b; }
+function divide(a, b) {
+  if (b === 0) throw new Error('Cannot divide by zero');
+  return a / b;
 }
 
-// Function to perform subtraction
-function subtract(num1, num2) {
-  // TODO: Perform subtraction operation here
-}
-
-// Function to perform multiplication
-function multiply(num1, num2) {
-  // TODO: Perform multiplication operation here
-}
-
-// Function to perform division
-function divide(num1, num2) {
-  // TODO: Perform division operation here
-}
-
-// Main program
 function calculator() {
-  // TODO: Get user input for numbers and operation
-  // TODO: Call the appropriate function based on the operation
-  // TODO: Output the result
+  rl.question('Enter first number: ', (n1) => {
+    rl.question('Enter second number: ', (n2) => {
+      rl.question('Enter operation (add/subtract/multiply/divide): ', (op) => {
+        try {
+          const a = Number(n1);
+          const b = Number(n2);
+          let result;
+
+          if (op === 'add') result = add(a, b);
+          else if (op === 'subtract') result = subtract(a, b);
+          else if (op === 'multiply') result = multiply(a, b);
+          else if (op === 'divide') result = divide(a, b);
+          else throw new Error('Unknown operation');
+
+          console.log(`Result: ${result}`);
+        } catch (err) {
+          console.log(`Error: ${err.message}`);
+        } finally {
+          rl.close();
+        }
+      });
+    });
+  });
 }
 
-// Invoke the calculator function to start the program
 calculator();
